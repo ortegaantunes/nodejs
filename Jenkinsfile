@@ -22,7 +22,7 @@ agent {
     
     environment {
         GIT_BRANCH = 'master'
-        GIT_REPOS_URL = 'https://bitbucket.org/rortega_gs/nodejs.git'
+        GIT_REPOS_URL = 'https://bitbucket.org/globalshares/poc-ontrack.git'
     }
    
     options {
@@ -55,10 +55,10 @@ agent {
         steps {
             ontrackBranchSetup(
                     project: 'POC',
-                    branch: "NodeJS-1",
+                    branch: "NodeJS",
                     script: """\
                         branch.config {
-                            gitBranch "NodeJS-1", [
+                            gitBranch "NodeJS", [
                                 buildCommitLink: [
                                     id: 'git-commit-property'
                                 ]
@@ -80,7 +80,7 @@ agent {
                 always {
                     ontrackBuild(
                         project: 'POC',
-                        branch: "NodeJS-1",
+                        branch: "NodeJS",
                         build: "${env.BUILD_ID}",
                         gitCommit: "${env.GIT_COMMIT}",
                     )
@@ -88,7 +88,7 @@ agent {
                 success {
                     ontrackValidate(
                         project: 'POC',
-                        branch: "NodeJS-1",
+                        branch: "NodeJS",
                         build: "${env.BUILD_ID}",
                         validationStamp: "Build",
                         buildResult: currentBuild.result,
@@ -104,7 +104,7 @@ agent {
                 failure {
                     ontrackValidate(
                         project: 'POC',
-                        branch: "NodeJS-1",
+                        branch: "NodeJS",
                         build: "${env.BUILD_ID}",
                         validationStamp: "Build",
                         buildResult: currentBuild.result,
@@ -125,7 +125,7 @@ agent {
                 success {
                     ontrackValidate(
                         project: 'POC',
-                        branch: "NodeJS-1",
+                        branch: "NodeJS",
                         build: "${env.BUILD_ID}",
                         validationStamp: "LINT",
                         buildResult: currentBuild.result,
@@ -141,7 +141,7 @@ agent {
                 failure {
                     ontrackValidate(
                         project: 'POC',
-                        branch: "NodeJS-1",
+                        branch: "NodeJS",
                         build: "${env.BUILD_ID}",
                         validationStamp: "LINT",
                         buildResult: currentBuild.result,
@@ -162,7 +162,7 @@ agent {
                 success {
                     ontrackValidate(
                         project: 'POC',
-                        branch: "NodeJS-1",
+                        branch: "NodeJS",
                         build: "${env.BUILD_ID}",
                         validationStamp: "E2E",
                         buildResult: currentBuild.result,
@@ -178,7 +178,7 @@ agent {
                 failure {
                     ontrackValidate(
                         project: 'POC',
-                        branch: "NodeJS-1",
+                        branch: "NodeJS",
                         build: "${env.BUILD_ID}",
                         validationStamp: "E2E",
                         buildResult: currentBuild.result,
@@ -191,17 +191,17 @@ agent {
     post {
       success {
         script {
-            ontrackValidate(project: 'POC',branch: "NodeJS-1",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job Completed with Success")
+            ontrackValidate(project: 'POC',branch: "NodeJS",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job Completed with Success")
         }
       }    
       unstable {
         script {
-            ontrackValidate(project: 'POC',branch: "NodeJS-1",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job has some unstable Stager")
+            ontrackValidate(project: 'POC',branch: "NodeJS",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job has some unstable Stager")
         }
       }
       failure {
         script {
-            ontrackValidate(project: 'POC',branch: "NodeJS-1",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job Failed all, please check the Logs")
+            ontrackValidate(project: 'POC',branch: "NodeJS",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job Failed all, please check the Logs")
           }
         }
     } 
