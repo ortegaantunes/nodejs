@@ -23,6 +23,7 @@ agent {
     environment {
         GIT_BRANCH = 'master'
         GIT_REPOS_URL = 'https://bitbucket.org/globalshares/poc-ontrack.git'
+        BITBUCKET_CRED = "gscloudsvc"
     }
    
     options {
@@ -46,7 +47,7 @@ agent {
                     relativeTargetDir: "."]], 
                     submoduleCfg: [], 
                     userRemoteConfigs: [
-                    [
+                    [credentialsId: "$BITBUCKET_CRED", 
                     url: "$GIT_REPOS_URL"]]
                     ])            
                 }
