@@ -22,7 +22,7 @@ agent {
     
     environment {
         GIT_BRANCH = 'master'
-        GIT_REPOS_URL = 'https://github.com/ortegaantunes/nodejs.git'
+        GIT_REPOS_URL = 'https://bitbucket.org/rortega_gs/nodejs.git'
     }
    
     options {
