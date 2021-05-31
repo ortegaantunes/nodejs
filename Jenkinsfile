@@ -37,7 +37,7 @@ agent {
     }
 
     stages {
-        stage('Checkout') {
+        /* stage('Checkout') {
             steps { 
             echo 'Start Clone Repository'
                 checkout([$class: 'GitSCM', 
@@ -51,7 +51,7 @@ agent {
                     url: "$GIT_REPOS_URL"]]
                     ])            
                 }
-        }
+        } */
         stage('Ontrack') {
         steps {
             ontrackBranchSetup(
@@ -82,7 +82,7 @@ agent {
                     ontrackBuild(
                         project: 'POC',
                         branch: "NodeJS",
-                        build: "${env.BUILD_ID}",
+                        build: "${env.GIT_COMMIT}",
                         gitCommit: "${env.GIT_COMMIT}",
                     )
                 }
@@ -90,7 +90,7 @@ agent {
                     ontrackValidate(
                         project: 'POC',
                         branch: "NodeJS",
-                        build: "${env.BUILD_ID}",
+                        build: "${env.GIT_COMMIT}",
                         validationStamp: "Build",
                         buildResult: currentBuild.result,
                         description: "Build Step Passed",
@@ -98,7 +98,7 @@ agent {
                     //ontrackPromote(
                     //    project: 'POC',
                     //    branch: 'NodeJS',
-                    //    build: "${env.BUILD_ID}",
+                    //    build: "${env.GIT_COMMIT}",
                     //    promotionLevel: "BRONZE"
                     //)
                 }
@@ -106,7 +106,7 @@ agent {
                     ontrackValidate(
                         project: 'POC',
                         branch: "NodeJS",
-                        build: "${env.BUILD_ID}",
+                        build: "${env.GIT_COMMIT}",
                         validationStamp: "Build",
                         buildResult: currentBuild.result,
                         description: "Build Step Failed",
@@ -127,7 +127,7 @@ agent {
                     ontrackValidate(
                         project: 'POC',
                         branch: "NodeJS",
-                        build: "${env.BUILD_ID}",
+                        build: "${env.GIT_COMMIT}",
                         validationStamp: "LINT",
                         buildResult: currentBuild.result,
                         description: "Static Code Analysis is OK",
@@ -135,7 +135,7 @@ agent {
                  //   ontrackPromote(
                  //       project: 'POC',
                  //       branch: 'NodeJS',
-                 //       build: "${env.BUILD_ID}",
+                 //       build: "${env.GIT_COMMIT}",
                  //       promotionLevel: "SILVER"
                  //   )
                 }
@@ -143,7 +143,7 @@ agent {
                     ontrackValidate(
                         project: 'POC',
                         branch: "NodeJS",
-                        build: "${env.BUILD_ID}",
+                        build: "${env.GIT_COMMIT}",
                         validationStamp: "LINT",
                         buildResult: currentBuild.result,
                         description: "Static Code Analysis is Failing",
@@ -164,7 +164,7 @@ agent {
                     ontrackValidate(
                         project: 'POC',
                         branch: "NodeJS",
-                        build: "${env.BUILD_ID}",
+                        build: "${env.GIT_COMMIT}",
                         validationStamp: "E2E",
                         buildResult: currentBuild.result,
                         description: "End to End Test is OK",
@@ -172,7 +172,7 @@ agent {
                     //ontrackPromote(
                     //    project: 'POC',
                     //    branch: 'NodeJS',
-                    //    build: "${env.BUILD_ID}",
+                    //    build: "${env.GIT_COMMIT}",
                     //    promotionLevel: "GOLD"
                     //)
                 }
@@ -180,7 +180,7 @@ agent {
                     ontrackValidate(
                         project: 'POC',
                         branch: "NodeJS",
-                        build: "${env.BUILD_ID}",
+                        build: "${env.GIT_COMMIT}",
                         validationStamp: "E2E",
                         buildResult: currentBuild.result,
                         description: "End to End Test is Failing",
@@ -192,17 +192,17 @@ agent {
     post {
       success {
         script {
-            ontrackValidate(project: 'POC',branch: "NodeJS",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job Completed with Success")
+            ontrackValidate(project: 'POC',branch: "NodeJS",build: "${env.GIT_COMMIT}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job Completed with Success")
         }
       }    
       unstable {
         script {
-            ontrackValidate(project: 'POC',branch: "NodeJS",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job has some unstable Stager")
+            ontrackValidate(project: 'POC',branch: "NodeJS",build: "${env.GIT_COMMIT}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job has some unstable Stager")
         }
       }
       failure {
         script {
-            ontrackValidate(project: 'POC',branch: "NodeJS",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job Failed all, please check the Logs")
+            ontrackValidate(project: 'POC',branch: "NodeJS",build: "${env.GIT_COMMIT}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job Failed all, please check the Logs")
           }
         }
     } 
