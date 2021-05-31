@@ -86,12 +86,6 @@ agent {
                         buildResult: currentBuild.result,
                         description: "Build Step Passed",
                     )
-                    //ontrackPromote(
-                    //    project: 'POC',
-                    //    branch: 'NodeJS',
-                    //    build: "${env.BUILD_ID}",
-                    //    promotionLevel: "BRONZE"
-                    //)
                 }
                 failure {
                     ontrackValidate(
@@ -123,12 +117,6 @@ agent {
                         buildResult: currentBuild.result,
                         description: "Static Code Analysis is OK",
                     )
-                 //   ontrackPromote(
-                 //       project: 'POC',
-                 //       branch: 'NodeJS',
-                 //       build: "${env.BUILD_ID}",
-                 //       promotionLevel: "SILVER"
-                 //   )
                 }
                 failure {
                     ontrackValidate(
@@ -160,12 +148,6 @@ agent {
                         buildResult: currentBuild.result,
                         description: "End to End Test is OK",
                     )
-                    //ontrackPromote(
-                    //    project: 'POC',
-                    //    branch: 'NodeJS',
-                    //    build: "${env.BUILD_ID}",
-                    //    promotionLevel: "GOLD"
-                    //)
                 }
                 failure {
                     ontrackValidate(
