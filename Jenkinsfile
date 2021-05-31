@@ -39,7 +39,7 @@ agent {
               sh "ls -la"
               sh "env"
               env.short_commit = git.getCommitSha() 
-              env.ontrack_label= "${env.BRANCH_NAME}-${env.short_commit}"
+              env.ontrack_label= "${env.BRANCH_NAME}${env.short_commit}"
             }
           }
         }
