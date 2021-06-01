@@ -169,19 +169,19 @@ agent {
         }
         stage ('Sonar') {
             steps {
-            script{
-            echo 'Start Analysis Code'
-                      sh "/opt/sonar-scanner/bin/sonar-scanner -X \
-                      -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-                      -Dsonar.host.url=$SONAR_HOST_URL \
-                      -Dsonar.login=$SONAR_AUTH_TOKEN \
-                      -Dsonar.projectBaseDir=. \
-                      -Dsonar.sources=. \
-                      -Dsonar.test.inclusions=app/*.ks,e2e_tests/*.js,app/__tests__/*.test.js \
-                      -DprojectVersion=$BUILD_NUMBER"
-
+              script{
+                echo 'Start Analysis Code'
+                          sh "/opt/sonar-scanner/bin/sonar-scanner -X \
+                          -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+                          -Dsonar.host.url=$SONAR_HOST_URL \
+                          -Dsonar.login=$SONAR_AUTH_TOKEN \
+                          -Dsonar.projectBaseDir=. \
+                          -Dsonar.sources=. \
+                          -Dsonar.test.inclusions=app/*.ks,e2e_tests/*.js,app/__tests__/*.test.js \
+                          -DprojectVersion=$BUILD_NUMBER"
+    
+                        }
                     }
-            }
             post {
                 success {
                     ontrackValidate(
