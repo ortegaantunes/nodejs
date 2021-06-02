@@ -27,6 +27,7 @@ agent {
       SONAR_HOST_URL = 'http://10.10.3.140:9000'
       SONAR_AUTH_TOKEN = 'b44c8f69042f501abfbab0401d762a6adbc88f87'
       SONAR_PROJECT_KEY = 'ontrack_poc'
+      SONAR_INCLUSIONS = 'app/,e2e_tests/,app/__tests__/'
     }
    
     options {
@@ -167,6 +168,42 @@ agent {
                 }
             }
         }
+            stage('Sonar') {
+            steps{
+              script{
+                echo 'Start Analysis Code'
+                      sh "/opt/sonar-scanner/bin/sonar-scanner -X \
+                      -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+                      -Dsonar.host.url=$SONAR_HOST_URL \
+                      -Dsonar.test.inclusions=$SONAR_INCLUSIONS \
+                      -Dsonar.login=$SONAR_AUTH_TOKEN \
+                      -Dsonar.projectBaseDir=. \
+                      -Dsonar.sources=."    
+                }
+            }
+            post {
+                success {
+                    ontrackValidate(
+                        project: 'POC',
+                        branch: "NodeJS-Demo",
+                        build: "${env.BUILD_ID}",
+                        validationStamp: "sonarqube",
+                        buildResult: currentBuild.result,
+                        description: "Sonarqube",
+                    )
+                }
+                failure {
+                    ontrackValidate(
+                        project: 'POC',
+                        branch: "NodeJS-Demo",
+                        build: "${env.BUILD_ID}",
+                        validationStamp: "sonarqube",
+                        buildResult: currentBuild.result,
+                        description: "Sonarqube",
+                    )
+                }
+            }
+        }       
     }
     post {
       success {
