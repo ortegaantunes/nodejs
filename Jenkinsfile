@@ -172,14 +172,16 @@ agent {
             steps{
               script{
                 echo 'Start Analysis Code'
+                withSonarQubeEnv ("gs-sonar") {
                       sh "/opt/sonar-scanner/bin/sonar-scanner -X \
                       -Dsonar.projectKey=$SONAR_PROJECT_KEY \
                       -Dsonar.host.url=$SONAR_HOST_URL \
                       -Dsonar.test.inclusions=$SONAR_INCLUSIONS \
                       -Dsonar.login=$SONAR_AUTH_TOKEN \
                       -Dsonar.projectBaseDir=. \
-                      -DprojectVersion=$BUILD_NUMBER \
-                      -Dsonar.sources=."    
+                      -DprojectVersion=${env.BUILD_ID} \
+                      -Dsonar.sources=." 
+                    }   
                 }
             }
             post {
