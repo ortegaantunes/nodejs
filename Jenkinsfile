@@ -181,6 +181,7 @@ agent {
                       -Dsonar.login=$SONAR_AUTH_TOKEN \
                       -Dsonar.projectBaseDir=. \
                       -Dsonar.projectVersion=${env.BUILD_ID} \
+                      -Dsonar.sourceEncoding=UTF-8 \
                       -Dsonar.sources=." 
                     }   
                 }
