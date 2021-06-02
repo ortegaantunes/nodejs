@@ -179,7 +179,7 @@ agent {
                       -Dsonar.test.inclusions=$SONAR_INCLUSIONS \
                       -Dsonar.login=$SONAR_AUTH_TOKEN \
                       -Dsonar.projectBaseDir=. \
-                      -DprojectVersion=${env.BUILD_ID} \
+                      -Dsonar.projectVersion=${env.BUILD_ID} \
                       -Dsonar.sources=." 
                     }   
                 }
