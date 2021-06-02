@@ -38,7 +38,7 @@
       "/node_modules/"
     ],
     "testResultsProcessor":  "jest-sonar-reporter",
-    "collectCoverage": "true",
+    "collectCoverage": true,
     "verbose": true
   },
   "jestSonar": {
