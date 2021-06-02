@@ -178,6 +178,8 @@ agent {
                       -Dsonar.projectKey=$SONAR_PROJECT_KEY \
                       -Dsonar.host.url=$SONAR_HOST_URL \
                       -Dsonar.test.inclusions=$SONAR_INCLUSIONS \
+                      -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+                      -Dsonar.testExecutionReportPaths=coverage/test-reporter.xml \
                       -Dsonar.login=$SONAR_AUTH_TOKEN \
                       -Dsonar.projectBaseDir=. \
                       -Dsonar.projectVersion=${env.BUILD_ID} \

@@ -34,7 +34,15 @@
   },
   "jest": {
     "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "testResultsProcessor":  "jest-sonar-reporter",
     "verbose": true
+  },
+  "jestSonar": {
+    "reportPath":  "coverage",
+    "reportFile":  "test-reporter.xml"
   },
   "prettier": {
     "singleQuote": true
