@@ -27,13 +27,11 @@ agent {
       SONAR_HOST_URL = 'http://10.10.3.140:9000'
       SONAR_AUTH_TOKEN = 'b44c8f69042f501abfbab0401d762a6adbc88f87'
       SONAR_PROJECT_KEY = 'ontrack_poc'
-    //  SONAR_INCLUSIONS = "app/*.ks,e2e_tests/*.js,app/__tests__/*.test.js"
-      SONAR_INCLUSIONS = "e2e_tests/*.test.js,app/__tests__/*.test.js,app/*.js,e2e_tests/*.js"
+      //SONAR_INCLUSIONS = "app/*.ks,e2e_tests/*.js,app/__tests__/*.test.js"
+      SONAR_INCLUSIONS = "e2e_tests/*.test.js,app/__tests__/*.test.js,eslint app/*.jse2e_tests/*.js"
     }
    
-       }
-    
-       options {
+    options {
         buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '20')
         disableConcurrentBuilds()    
         skipStagesAfterUnstable() 
