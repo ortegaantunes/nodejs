@@ -1,6 +1,6 @@
 {
   "name": "express-app-testing-demo",
-  "description": "a simple express app for demonstrating testing and code coverage",
+  "description": "Demo NodeJS Project",
   "version": "1.0.0",
   "engines": {
     "node": ">=12"
