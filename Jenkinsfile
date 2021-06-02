@@ -53,10 +53,10 @@ agent {
         steps {
             ontrackBranchSetup(
                     project: 'POC',
-                    branch: "NodeJS",
+                    branch: "NodeJS-Demo",
                     script: """\
                         branch.config {
-                            gitBranch "NodeJS", [
+                            gitBranch "NodeJS-Demo", [
                                 buildCommitLink: [
                                     id: 'git-commit-property'
                                 ]
@@ -78,7 +78,7 @@ agent {
                 always {
                     ontrackBuild(
                         project: 'POC',
-                        branch: "NodeJS",
+                        branch: "NodeJS-Demo",
                         build: "${env.BUILD_ID}",
                         gitCommit: "${env.GIT_COMMIT}",
                     )
@@ -86,7 +86,7 @@ agent {
                 success {
                     ontrackValidate(
                         project: 'POC',
-                        branch: "NodeJS",
+                        branch: "NodeJS-Demo",
                         build: "${env.BUILD_ID}",
                         validationStamp: "Build",
                         buildResult: currentBuild.result,
@@ -96,7 +96,7 @@ agent {
                 failure {
                     ontrackValidate(
                         project: 'POC',
-                        branch: "NodeJS",
+                        branch: "NodeJS-Demo",
                         build: "${env.BUILD_ID}",
                         validationStamp: "Build",
                         buildResult: currentBuild.result,
@@ -117,7 +117,7 @@ agent {
                 success {
                     ontrackValidate(
                         project: 'POC',
-                        branch: "NodeJS",
+                        branch: "NodeJS-Demo",
                         build: "${env.BUILD_ID}",
                         validationStamp: "LINT",
                         buildResult: currentBuild.result,
@@ -127,7 +127,7 @@ agent {
                 failure {
                     ontrackValidate(
                         project: 'POC',
-                        branch: "NodeJS",
+                        branch: "NodeJS-Demo",
                         build: "${env.BUILD_ID}",
                         validationStamp: "LINT",
                         buildResult: currentBuild.result,
@@ -148,7 +148,7 @@ agent {
                 success {
                     ontrackValidate(
                         project: 'POC',
-                        branch: "NodeJS",
+                        branch: "NodeJS-Demo",
                         build: "${env.BUILD_ID}",
                         validationStamp: "E2E",
                         buildResult: currentBuild.result,
@@ -158,7 +158,7 @@ agent {
                 failure {
                     ontrackValidate(
                         project: 'POC',
-                        branch: "NodeJS",
+                        branch: "NodeJS-Demo",
                         build: "${env.BUILD_ID}",
                         validationStamp: "E2E",
                         buildResult: currentBuild.result,
@@ -167,59 +167,21 @@ agent {
                 }
             }
         }
-        stage ('Sonar') {
-            steps {
-              script{
-                echo 'Start Analysis Code'
-                          sh "/opt/sonar-scanner/bin/sonar-scanner -X \
-                          -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-                          -Dsonar.host.url=$SONAR_HOST_URL \
-                          -Dsonar.login=$SONAR_AUTH_TOKEN \
-                          -Dsonar.projectBaseDir=. \
-                          -Dsonar.sources=. \
-                          -Dsonar.test.inclusions=app/*.ks,e2e_tests/*.js,app/__tests__/*.test.js \
-                          -DprojectVersion=$BUILD_NUMBER"
-    
-                        }
-                    }
-            post {
-                success {
-                    ontrackValidate(
-                        project: 'POC',
-                        branch: "NodeJS",
-                        build: "${env.BUILD_ID}",
-                        validationStamp: "sonarqube",
-                        buildResult: currentBuild.result,
-                        description: "Sonarqube",
-                    )
-                }
-                failure {
-                    ontrackValidate(
-                        project: 'POC',
-                        branch: "NodeJS",
-                        build: "${env.BUILD_ID}",
-                        validationStamp: "sonarqube",
-                        buildResult: currentBuild.result,
-                        description: "Sonarqube",
-                    )
-                }
-            }
-        } 
     }
     post {
       success {
         script {
-            ontrackValidate(project: 'POC',branch: "NodeJS",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job Completed with Success")
+            ontrackValidate(project: 'POC',branch: "NodeJS-Demo",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job Completed with Success")
         }
       }    
       unstable {
         script {
-            ontrackValidate(project: 'POC',branch: "NodeJS",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job has some unstable Stager")
+            ontrackValidate(project: 'POC',branch: "NodeJS-Demo",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job has some unstable Stager")
         }
       }
       failure {
         script {
-            ontrackValidate(project: 'POC',branch: "NodeJS",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job Failed all, please check the Logs")
+            ontrackValidate(project: 'POC',branch: "NodeJS-Demo",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job Failed all, please check the Logs")
           }
         }
     } 
