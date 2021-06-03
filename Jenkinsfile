@@ -1,5 +1,5 @@
-#!groovy
-@Library(value='jenkins-sharedlibs@master', changelog=false)_
+//#!groovy
+//@Library(value='jenkins-sharedlibs@master', changelog=false)_
 
 pipeline {
 agent {
@@ -22,11 +22,11 @@ agent {
     
     environment {
       project_name='ontrack-poc-ci'
-      DOCKER_REGISTRY_NAME = 'gscontainerregistry'
+      DOCKER_REGISTRY_NAME = ''
       jenkins_sp_id = 'jenkins_sp'
-      SONAR_HOST_URL = 'http://10.10.3.140:9000'
-      SONAR_AUTH_TOKEN = 'b44c8f69042f501abfbab0401d762a6adbc88f87'
-      SONAR_PROJECT_KEY = 'ontrack_poc'
+      SONAR_HOST_URL = ''
+      SONAR_AUTH_TOKEN = ''
+      SONAR_PROJECT_KEY = ''
       //SONAR_INCLUSIONS = "app/*.ks,e2e_tests/*.js,app/__tests__/*.test.js"
       SONAR_INCLUSIONS = "e2e_tests/*.test.js,app/__tests__/*.test.js,app/*.js,e2e_tests/*.js"
     }
@@ -173,7 +173,7 @@ agent {
             steps{
               script{
                 echo 'Start Analysis Code'
-                withSonarQubeEnv ("gs-sonar") {
+                withSonarQubeEnv ("sonar") {
                       sh "/opt/sonar-scanner/bin/sonar-scanner -X \
                       -Dsonar.projectKey=$SONAR_PROJECT_KEY \
                       -Dsonar.host.url=$SONAR_HOST_URL \
