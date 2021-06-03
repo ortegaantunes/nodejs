@@ -27,7 +27,6 @@ agent {
       SONAR_HOST_URL = ''
       SONAR_AUTH_TOKEN = ''
       SONAR_PROJECT_KEY = ''
-      //SONAR_INCLUSIONS = "app/*.ks,e2e_tests/*.js,app/__tests__/*.test.js"
       SONAR_INCLUSIONS = "e2e_tests/*.test.js,app/__tests__/*.test.js,app/*.js,e2e_tests/*.js"
     }
    
