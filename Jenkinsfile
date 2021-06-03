@@ -45,8 +45,8 @@ agent {
               sh "ls -la"
               sh "df -h"
               sh "env"
-              env.short_commit = git.getCommitSha() 
-              env.ontrack_label= "${env.short_commit}"
+              //env.short_commit = git.getCommitSha() 
+              //env.ontrack_label= "${env.short_commit}"
             }
           }
         }
