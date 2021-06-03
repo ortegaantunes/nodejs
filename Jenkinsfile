@@ -168,7 +168,7 @@ agent {
                 }
             }
         }
-            stage('Sonar') {
+        /*     stage('Sonar') {
             steps{
               script{
                 echo 'Start Analysis Code'
@@ -210,7 +210,7 @@ agent {
                     )
                 }
             }
-        }       
+        } */       
     }
     post {
       success {
