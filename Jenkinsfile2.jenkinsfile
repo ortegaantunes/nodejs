@@ -49,81 +49,83 @@ agent {
 
     stages {
         stage('Ontrack') {
-        steps('Ontrack_Down'){
-            ontrackCliDownload(
-            logging: 'true'
-            )
-            sh 'ontrack-cli version --cli'
-        }
-        steps('Ontrack_Connect'){
-            ontrackCliConnect(
-                url: '${ONTRACK_URL}',
-                credentialsId: '${ONTRACK_TOKEN}'
-            )
-        }
-        steps {
-            ontrackCliSetup(
-                    project: 'POC',
-                    branch: 'Library',
-                    logging: true,
-                     autoValidationStamps: true,
-                     validations: [
-                         [
-                            name: "BUILD",
-                            tests: [
-                                warningIfSkipped: true,
-                            ]
-                         ],
-                         [
-                            name: "FS-Check",
-                            fscheck: [
-                                failed: [
-                                    level: 'CRITICAL',
-                                    value: 1,
+        parallel {
+                steps('Ontrack_Down'){
+                    ontrackCliDownload(
+                    logging: 'true'
+                    )
+                    sh 'ontrack-cli version --cli'
+                }
+                steps('Ontrack_Connect'){
+                    ontrackCliConnect(
+                        url: '${ONTRACK_URL}',
+                        credentialsId: '${ONTRACK_TOKEN}'
+                    )
+                }
+                steps {
+                    ontrackCliSetup(
+                            project: 'POC',
+                            branch: 'Library',
+                            logging: true,
+                             autoValidationStamps: true,
+                             validations: [
+                                 [
+                                    name: "BUILD",
+                                    tests: [
+                                        warningIfSkipped: true,
+                                    ]
+                                 ],
+                                 [
+                                    name: "FS-Check",
+                                    fscheck: [
+                                        failed: [
+                                            level: 'CRITICAL',
+                                            value: 1,
+                                        ],
+                                        warning: [
+                                            level: 'HIGH',
+                                            value: 1,
+                                        ]
+                                    ],
+                                 ],
+                                 [
+                                    name: "PERCENTAGE",
+                                    percentage: [
+                                        failure: 80,
+                                        warning: 50,
+                                        okIfGreater: false,
+                                    ],
+                                 ],
+                                 [
+                                    name: "METRICS",
+                                    metrics: true
+                                 ],
+                                 [
+                                   name: "GENERIC",
+                                 ]
+                             ],
+                             promotions: [
+                                BRONZE: [
+                                    validations: [
+                                        "BUILD"
+                                    ]
                                 ],
-                                warning: [
-                                    level: 'HIGH',
-                                    value: 1,
-                                ]
-                            ],
-                         ],
-                         [
-                            name: "PERCENTAGE",
-                            percentage: [
-                                failure: 80,
-                                warning: 50,
-                                okIfGreater: false,
-                            ],
-                         ],
-                         [
-                            name: "METRICS",
-                            metrics: true
-                         ],
-                         [
-                           name: "GENERIC",
-                         ]
-                     ],
-                     promotions: [
-                        BRONZE: [
-                            validations: [
-                                "BUILD"
-                            ]
-                        ],
-                        SILVER: [
-                            promotions: [
-                                "BRONZE",
-                            ],
-                            validations: [
-                                "CHML",
-                                "PERCENTAGE",
-                                "METRICS",
-                            ],
-                        ],
-                     ]
-                )
-                ontrackCliBuild()
+                                SILVER: [
+                                    promotions: [
+                                        "BRONZE",
+                                    ],
+                                    validations: [
+                                        "CHML",
+                                        "PERCENTAGE",
+                                        "METRICS",
+                                    ],
+                                ],
+                             ]
+                        )
+                    ontrackCliBuild()
+                }
             }
-        }    
+        }
         stage("init"){
           steps{
             script{
