@@ -1,6 +1,9 @@
 #!groovy
 //@Library(value='jenkins-sharedlibs@master', changelog=false)_
-@Library(value='ontrack-jenkins-cli-pipeline@1.0', changelog=false)_
+//@Library(value='ontrack-jenkins-cli-pipeline@1.0', changelog=false)_
+
+@Library('ontrack-library') _
+
 
 pipeline {
 agent {
