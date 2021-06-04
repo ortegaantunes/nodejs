@@ -33,7 +33,7 @@ agent {
       SONAR_PROJECT_KEY = ''
       SONAR_INCLUSIONS = "e2e_tests/*.test.js,app/__tests__/*.test.js,app/*.js,e2e_tests/*.js"
    //   ONTRACK_SCM = 'github'
-     // ONTRACK_PROJECT_NAME = 'POC'
+      ONTRACK_PROJECT_NAME = 'POC'
       ONTRACK_URL = 'http://ontrack.ontrack.svc.cluster.local:8080'
       ONTRACK_TOKEN = 'e9a3592e-172f-48ec-bc87-8b849772d871'
       
@@ -51,6 +51,8 @@ agent {
         stage('Ontrack') {
         steps {
             ontrackCliSetup(
+                    project: '$ONTRACK_PROJECT_NAME',
+                    branch: 'Library',
                     logging: true,
                      autoValidationStamps: true,
                      validations: [
