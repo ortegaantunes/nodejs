@@ -32,6 +32,11 @@ agent {
       SONAR_AUTH_TOKEN = ''
       SONAR_PROJECT_KEY = ''
       SONAR_INCLUSIONS = "e2e_tests/*.test.js,app/__tests__/*.test.js,app/*.js,e2e_tests/*.js"
+      ONTRACK_SCM = 'github'
+      ONTRACK_PROJECT_NAME = 'POC'
+      ONTRACK_URL = 'http://ontrack.ontrack.svc.cluster.local:8080'
+      ONTRACK_TOKEN = 'e9a3592e-172f-48ec-bc87-8b849772d871'
+      
     }
    
     options {
@@ -272,7 +277,7 @@ agent {
             }
         } */       
     }
-    post {
+   /*  post {
       success {
         script {
             ontrackValidate(project: 'POC',branch: "NodeJS-Demo",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job Completed with Success")
@@ -288,5 +293,5 @@ agent {
             ontrackValidate(project: 'POC',branch: "NodeJS-Demo",build: "${env.BUILD_ID}",validationStamp: "JOB",buildResult: currentBuild.result,description: "Job Failed all, please check the Logs")
           }
         }
-    } 
+    } */
 }
