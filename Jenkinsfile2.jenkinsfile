@@ -35,7 +35,7 @@ agent {
    //   ONTRACK_SCM = 'github'
      // ONTRACK_PROJECT_NAME = 'POC'
       ONTRACK_URL = 'http://ontrack.ontrack.svc.cluster.local:8080'
-     ONTRACK_TOKEN = 'e9a3592e-172f-48ec-bc87-8b849772d871'
+    // ONTRACK_TOKEN = 'e9a3592e-172f-48ec-bc87-8b849772d871'
       
     }
    
@@ -60,7 +60,10 @@ agent {
             steps{
             ontrackCliConnect(
                 url: '${ONTRACK_URL}',
-                credentialsId: '${ONTRACK_TOKEN}'
+                credentialsId: 'ontrack',
+                name: 'poc',
+                logging: 'true',
+                tracing: 'true'
                 )
             }
         }
