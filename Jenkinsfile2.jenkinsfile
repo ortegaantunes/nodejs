@@ -51,7 +51,7 @@ agent {
         stage('Ontrack') {
         steps {
             ontrackCliSetup(
-                    project: '$ONTRACK_PROJECT_NAME',
+                    project: 'POC',
                     branch: 'Library',
                     logging: true,
                      autoValidationStamps: true,
