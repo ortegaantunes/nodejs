@@ -72,9 +72,10 @@ agent {
             ontrackCliSetup(
                     project: 'POC',
                     branch: 'Library',
+                    setup: true,
                     logging: true,
-                     autoValidationStamps: true,
-                     validations: [
+                    autoValidationStamps: true,
+                    validations: [
                          [
                             name: "BUILD",
                             tests: [
