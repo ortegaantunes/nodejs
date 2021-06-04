@@ -49,18 +49,23 @@ agent {
 
     stages {
         stage('Ontrack_Down'){
+            steps{
             ontrackCliDownload(
             logging: 'true'
             )
             sh 'ontrack-cli version --cli'
+            }
         }
         stage('Ontrack_Connect'){
+            steps{
             ontrackCliConnect(
                 url: '${ONTRACK_URL}',
                 credentialsId: '${ONTRACK_TOKEN}'
-            )
+                )
+            }
         }
         stage('Ontrack_Setup') {
+            steps{
             ontrackCliSetup(
                     project: 'POC',
                     branch: 'Library',
@@ -120,8 +125,9 @@ agent {
                         ],
                      ]
                 )
-                ontrackCliBuild()
+                ontrackCliBuild()                
             }
+        }
             
         stage("init"){
           steps{
