@@ -1,7 +1,7 @@
 {
   "name": "express-app-testing-demo",
   "description": "Demo NodeJS Project",
-  "version": "1.0.1",
+  "version": "1.1.2",
   "engines": {
     "node": ">=12"
   },
@@ -9,10 +9,10 @@
   "main": "app/server.js",
   "scripts": {
     "start": "nodemon app/server.js",
-    "test": "npm run lint && npm run jest",
+    "test": "npm run lint",
     "test:e2e": "jest --runInBand e2e_tests/*.test.js",
     "jest": "jest --coverage app/__tests__/*.test.js",
-    "lint": "eslint app/*.js e2e_tests/*.js",
+    "lint": "eslint -f json app/*.js e2e_tests/*.js -o ./coverage/eslint-report.json --fix",
     "prettier": "prettier --write app/*.js app/__{tests,mocks}__/*.js e2e_tests/*.js"
   },
   "dependencies": {
@@ -27,7 +27,8 @@
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
     "supertest": "~4.0.2",
-    "jest-sonar-reporter": "^2.0.0"
+    "jest-sonar-reporter": "^2.0.0",
+    "eslint-plugin-sonarjs": "^0.8.0-125"
   },
   "repository": {
     "type": "git",
@@ -35,16 +36,14 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "testResultsProcessor":  "jest-sonar-reporter",
     "collectCoverage": true,
-    "verbose": true
+    "verbose": true,
+    "testResultsProcessor": "jest-sonar-reporter"
   },
   "jestSonar": {
-    "reportPath":  "coverage",
-    "reportFile":  "test-reporter.xml"
+    "reportPath": "./coverage/",
+    "reportFile": "test-reporter.xml",
+    "indent": 4
   },
   "prettier": {
     "singleQuote": true
