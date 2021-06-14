@@ -67,7 +67,7 @@ agent {
                 )
             }
         }
-        stage ('Build') {
+        /*stage ('Build') {
             steps { 
                 container('nodejs') {
                 sh """
@@ -93,8 +93,8 @@ agent {
                     )
                 }
             }
-        }
-        stage ('Lint') {
+        }*/
+        /*stage ('Lint') {
             steps {
                 container('nodejs'){
                 sh """
@@ -135,7 +135,7 @@ agent {
                     )
                 }
             }
-        }
+        }*/
         stage('Sonar') {
             steps{
               script{
