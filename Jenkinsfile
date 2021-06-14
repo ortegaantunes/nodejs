@@ -24,9 +24,9 @@ agent {
       project_name='ontrack-poc-ci'
       DOCKER_REGISTRY_NAME = ''
       jenkins_sp_id = 'jenkins_sp'
-      SONAR_HOST_URL = ''
-      SONAR_AUTH_TOKEN = ''
-      SONAR_PROJECT_KEY = ''
+      SONAR_HOST_URL = 'http://192.168.1.12:9000'
+      SONAR_AUTH_TOKEN = '1d207c5f1186076aba4843fcad5778e36b23ae76'
+      SONAR_PROJECT_KEY = 'ontrack'
       SONAR_INCLUSIONS = "e2e_tests/*.test.js,app/__tests__/*.test.js,app/*.js,e2e_tests/*.js"
     }
    
@@ -83,8 +83,6 @@ agent {
                         build: "${env.BUILD_ID}",
                         gitCommit: "${env.GIT_COMMIT}",
                     )
-                }
-                success {
                     ontrackValidate(
                         project: 'POC',
                         branch: "NodeJS-Demo",
@@ -92,16 +90,6 @@ agent {
                         validationStamp: "Build",
                         buildResult: currentBuild.result,
                         description: "Build Step Passed",
-                    )
-                }
-                failure {
-                    ontrackValidate(
-                        project: 'POC',
-                        branch: "NodeJS-Demo",
-                        build: "${env.BUILD_ID}",
-                        validationStamp: "Build",
-                        buildResult: currentBuild.result,
-                        description: "Build Step Failed",
                     )
                 }
             }
@@ -115,7 +103,7 @@ agent {
                 }
             }
             post {
-                success {
+                always {
                     ontrackValidate(
                         project: 'POC',
                         branch: "NodeJS-Demo",
@@ -125,19 +113,9 @@ agent {
                         description: "Static Code Analysis is OK",
                     )
                 }
-                failure {
-                    ontrackValidate(
-                        project: 'POC',
-                        branch: "NodeJS-Demo",
-                        build: "${env.BUILD_ID}",
-                        validationStamp: "LINT",
-                        buildResult: currentBuild.result,
-                        description: "Static Code Analysis is Failing",
-                    )
-                }
             }
         }
-            stage ('E2E') {
+        stage ('E2E') {
             steps {
                 container('nodejs'){
                 sh """
@@ -146,7 +124,7 @@ agent {
                 }
             }
             post {
-                success {
+                always {
                     ontrackValidate(
                         project: 'POC',
                         branch: "NodeJS-Demo",
@@ -156,61 +134,38 @@ agent {
                         description: "End to End Test is OK",
                     )
                 }
-                failure {
-                    ontrackValidate(
-                        project: 'POC',
-                        branch: "NodeJS-Demo",
-                        build: "${env.BUILD_ID}",
-                        validationStamp: "E2E",
-                        buildResult: currentBuild.result,
-                        description: "End to End Test is Failing",
-                    )
-                }
             }
         }
-        /*     stage('Sonar') {
+        stage('Sonar') {
             steps{
               script{
                 echo 'Start Analysis Code'
-                withSonarQubeEnv ("sonar") {
                       sh "/opt/sonar-scanner/bin/sonar-scanner -X \
                       -Dsonar.projectKey=$SONAR_PROJECT_KEY \
                       -Dsonar.host.url=$SONAR_HOST_URL \
                       -Dsonar.test.inclusions=$SONAR_INCLUSIONS \
+                      -Dsonar.eslint.reportPaths=coverage/eslint-report.json \
                       -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
                       -Dsonar.testExecutionReportPaths=coverage/test-reporter.xml \
                       -Dsonar.login=$SONAR_AUTH_TOKEN \
                       -Dsonar.projectBaseDir=. \
                       -Dsonar.projectVersion=${env.BUILD_ID} \
-                      -Dsonar.sourceEncoding=UTF-8 \
-                      -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
-                      -Dsonar.sources=." 
-                    }   
+                      -Dsonar.sources=."  
                 }
             }
             post {
-                success {
+                always {
                     ontrackValidate(
                         project: 'POC',
                         branch: "NodeJS-Demo",
-                        build: "${env.BUILD_ID}",
+                        build: "${GIT_COMMIT}-${env.BUILD_ID}",
                         validationStamp: "sonarqube",
                         buildResult: currentBuild.result,
                         description: "Sonarqube",
                     )
                 }
-                failure {
-                    ontrackValidate(
-                        project: 'POC',
-                        branch: "NodeJS-Demo",
-                        build: "${env.BUILD_ID}",
-                        validationStamp: "sonarqube",
-                        buildResult: currentBuild.result,
-                        description: "Sonarqube",
-                    )
-                }
-            }
-        } */       
+            } 
+        }      
     }
     post {
       success {
