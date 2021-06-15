@@ -2,7 +2,8 @@
 //@Library(value='jenkins-sharedlibs@master', changelog=false)_
 
 pipeline {
-agent {
+agent any 
+    //{
     docker {
     image 'ortega87/nodejs-buildbox:1.3'
     reuseNode true
@@ -22,7 +23,7 @@ agent {
       }
       podRetention onFailure()
     }*/
-  }
+ // }
     
     environment {
       project_name='ontrack-poc-ci'
@@ -141,6 +142,12 @@ agent {
             }
         }*/
         stage('Sonar') {
+            agent {
+                    docker {
+                        image 'ortega87/nodejs-buildbox:1.3'
+                        reuseNode true
+                    }
+            }
             steps{
               script{
                 echo 'Start Analysis Code'
