@@ -4,7 +4,7 @@
 pipeline {
 agent {
     docker {
-    image ortega87/nodejs-buildbox:1.3'
+    image 'ortega87/nodejs-buildbox:1.3'
     reuseNode true
     }
     /*kubernetes {
