@@ -67,11 +67,11 @@ agent {
                 )
             }
         }
-        /*stage ('Build') {
+        stage ('Build') {
             steps { 
                 container('nodejs') {
                 sh """
-                npm install
+                npm -v
                 """ 
                 }
             }
@@ -93,7 +93,7 @@ agent {
                     )
                 }
             }
-        }*/
+        }
         /*stage ('Lint') {
             steps {
                 container('nodejs'){
