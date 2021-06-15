@@ -156,7 +156,7 @@ agent {
                     ontrackValidate(
                         project: 'POC',
                         branch: "NodeJS-Demo",
-                        build: "${GIT_COMMIT}-${env.BUILD_ID}",
+                        build: "${env.BUILD_ID}",
                         validationStamp: "sonarqube",
                         buildResult: currentBuild.result,
                         description: "Sonarqube",
