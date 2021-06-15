@@ -142,12 +142,13 @@ agent {
                 echo 'Start Analysis Code'
                       sh "/opt/sonar-scanner/bin/sonar-scanner -X \
                       -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+                      -Dsonar.projectName=ontrack \
+                      -Dsonar.projectVersion=${env.BUILD_ID} \
                       -Dsonar.host.url=$SONAR_HOST_URL \
                       -Dsonar.test.inclusions=$SONAR_INCLUSIONS \
                       -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
                       -Dsonar.login=$SONAR_AUTH_TOKEN \
                       -Dsonar.projectBaseDir=. \
-                      -Dsonar.projectVersion=${env.BUILD_ID} \
                       -Dsonar.sources=."  
                 }
             }
