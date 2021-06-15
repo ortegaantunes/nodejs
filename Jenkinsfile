@@ -26,7 +26,7 @@ agent {
       jenkins_sp_id = 'jenkins_sp'
       SONAR_HOST_URL = 'http://192.168.1.12:9000'
       SONAR_AUTH_TOKEN = '1d207c5f1186076aba4843fcad5778e36b23ae76'
-      SONAR_PROJECT_KEY = 'ontrack'
+      SONAR_PROJECT_KEY = 'nodejs'
       SONAR_INCLUSIONS = "e2e_tests/*.test.js,app/__tests__/*.test.js,app/*.js,e2e_tests/*.js"
     }
    
