@@ -3,7 +3,11 @@
 
 pipeline {
 agent {
-    kubernetes {
+    docker {
+    image ortega87/nodejs-buildbox:1.3'
+    reuseNode true
+    }
+    /*kubernetes {
       label 'nodejs'
       nodeSelector 'ciworkers'
       containerTemplate {
@@ -17,7 +21,7 @@ agent {
         resourceLimitMemory '200Mi'
       }
       podRetention onFailure()
-    }
+    }*/
   }
     
     environment {
